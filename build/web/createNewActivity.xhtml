@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>  
+        <title>Create Your New Bucket List Activity</title>  
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+        <h:outputStylesheet name="css/style.css"/>
+        <style>
+            body{
+                background-image: url("#{resource['images/grassy.jpg']}");
+            }
+        </style>
+
+    </h:head>  
+
+    <h:body>  
+        <f:metadata>
+            <ui:param name="activity" value="#{existingActivity}" />
+        </f:metadata>
+        <div id="loginOverlay" class="pb-5"></div>
+
+        <div class="container">
+            <center>  
+                <h2 class="heading"><h:outputText value="Bucket List Tracker App"/></h2> 
+                <hr/>
+                <h4 class="heading"><h:outputText value="For those that dare to dream!"/></h4>
+
+                <p:tabView id="tablesection">
+
+                    <p:tab title="Create a new bucket list activity">
+
+                        
+                            <div class="form-group">  
+                                <div class="col"></div>  
+                                <div  class="col">  
+                                    <h2 style="text-align: center">Enter the activity details below</h2>  
+                                </div>  
+                            </div>  
+                        
+                            <hr class="dividerLine"/>  
+                            <h:form>
+                                <p:messages id="msgs" />
+                            <h:panelGrid columns="2" style="width: 70%" columnClasses="10% top-alignment, 70% top-alignment">
+
+                                <p:outputLabel for="title" class="control-label" value="Title" />
+                                <p:inputText id="title" value="#{activity.title}" class="form-control"   
+                                             required="true"  >
+                                    <f:validateLength minimum="5" /> 
+                                    <p:ajax update="msgTitle" event="keyup" />
+                                </p:inputText>
+                                <p:message for="title" display="icon" id="msgTitle" />
+                                <br />
+                                <p:outputLabel for="location" class="control-label" value="Location" />
+                                <p:inputText id="location" value="#{activity.location}" class="form-control"   
+                                             required="true"  >
+                                    <f:validateLength minimum="2" /> 
+                                    <p:ajax update="msgTitle" event="keyup" />
+                                </p:inputText>
+                                <p:message for="location" display="icon" id="msgLocation" />
+                                <br />
+
+                                <p:outputLabel for="estimated-budget" class="control-label" value="Estimated Budget" />
+                                <p:inputText id="estimated-budget" value="#{activity.estimatedBudget}" class="form-control">
+                                </p:inputText>
+                                <p:message for="estimated-budget" display="icon" id="msgEstimatedBudget" />
+                                <br />
+                                <p:outputLabel for="details" class="control-label" value="Details" />
+                                <p:inputTextarea id="details" value="#{activity.details}" class="form-control"/>
+
+                                <p:message for="details" display="icon" id="msgDetails" />
+                                <p:separator style="visibility: hidden"/>
+
+                                <h:outputLabel for="completed" class="control-label">Completed?</h:outputLabel>  
+                                <h:selectBooleanCheckbox id="completed" value="#{activity.completed}"/>
+                                <p:message for="completed" display="icon" id="msgCompleted" />
+                                <p:separator style="visibility: hidden"/>
+                                
+                                <h:commandButton value="Save" action="#{bucketListManagedBean.createBucketListActivity(activity)}" class="btn btn-success"   
+                                                 style="width: 80px;"></h:commandButton>  
+
+                                <h:link outcome="index" value="Go back to Bucket List" class="btn btn-primary" />  
+
+                            </h:panelGrid>
+                        </h:form>
+                    </p:tab>
+                </p:tabView>
+
+            </center>
+        </div>
+    </h:body>  
+</html>  
