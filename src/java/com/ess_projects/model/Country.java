@@ -1,5 +1,6 @@
 package com.ess_projects.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Country {
@@ -13,6 +14,7 @@ public class Country {
     private String totalArea;
     private String acronym;
 
+   
     public String getFlagUrl() {
         return flagUrl;
     }

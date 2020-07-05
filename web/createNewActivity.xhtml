@@ -83,10 +83,12 @@
                                 <p:message for="completed" display="icon" id="msgCompleted" />
                                 <p:separator style="visibility: hidden"/>
                                 
+                                <h:link outcome="index" value="Go back to Bucket List" class="btn btn-primary" />  
+                                
                                 <h:commandButton value="Save" action="#{bucketListManagedBean.createBucketListActivity(activity)}" class="btn btn-success"   
                                                  style="width: 80px;"></h:commandButton>  
 
-                                <h:link outcome="index" value="Go back to Bucket List" class="btn btn-primary" />  
+                                
 
                             </h:panelGrid>
                         </h:form>
