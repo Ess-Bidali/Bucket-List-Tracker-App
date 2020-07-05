@@ -137,7 +137,8 @@ public class BucketListManagedBean {
     }
    
     public void getCountryData() throws MalformedURLException, IOException{
-        dataSupplier.getCountryData();
+        this.searchedCountry = dataSupplier.getCountryData("Kenya");
+        System.out.println(searchedCountry);
     }
     
 }

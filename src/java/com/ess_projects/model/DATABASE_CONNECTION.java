@@ -18,6 +18,7 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
@@ -43,7 +44,7 @@ public class DATABASE_CONNECTION {
     public Connection get_connection(){
         Connection conn = null;
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
         } catch (ClassNotFoundException | SQLException e) {
                 e.printStackTrace();
@@ -185,13 +186,13 @@ public class DATABASE_CONNECTION {
     }
    
    
-    public void getCountryData() throws MalformedURLException, IOException{
-        String countryName = "Kenya";
+    public Country getCountryData(String countryName) throws MalformedURLException, IOException{
+        Country country = new Country();
+        
         URL urlForGetRequest = new URL("https://restcountries.eu/rest/v2/name/"+ countryName);
         String readLine = "";
         HttpURLConnection conection = (HttpURLConnection) urlForGetRequest.openConnection();
         conection.setRequestMethod("GET");
-//        conection.setRequestProperty("userId", "a1bcdef"); // set userId its a sample here
         int responseCode = conection.getResponseCode();
         
         if (responseCode == HttpURLConnection.HTTP_OK) {
@@ -203,7 +204,24 @@ public class DATABASE_CONNECTION {
             sc.close();
             JSONParser parse = new JSONParser();
             try {
+                //Get array object from data
                 JSONArray jsonarr_1 = (JSONArray) parse.parse(readLine);
+                //Extract the json object
+                JSONObject home = (JSONObject)jsonarr_1.get(0);
+                //Get details
+                String flagUrl = (String) home.get("flag");
+                String name = (String) home.get("name");
+                String capital = (String) home.get("capital");
+                String region = (String) home.get("region");
+                long population = (Long) home.get("population");
+                double totalArea = (Double) home.get("area");
+                
+                country.setFlagUrl(flagUrl);
+                country.setName(name);
+                country.setCapital(capital);
+                country.setRegion(region);
+                country.setPopulation(population);
+                country.setTotalArea(totalArea);
                 
                 
             } catch (ParseException ex) {
@@ -213,7 +231,7 @@ public class DATABASE_CONNECTION {
     } else {
         System.out.println("GET NOT WORKED");
     }
-
+        return country;
     }
     
     private void printSQLException(SQLException ex) {

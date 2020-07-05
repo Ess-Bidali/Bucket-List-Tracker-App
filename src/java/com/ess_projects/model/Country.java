@@ -7,14 +7,22 @@ public class Country {
     private String flagUrl;
     private String name;
     private String capital;
+    private String region;
     private List<String> languages;
     private List<String> currencies;
     private List<String> nameTranslations;
-    private String population;
-    private String totalArea;
+    private long population;
+    private double totalArea;
     private String acronym;
 
-   
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
     public String getFlagUrl() {
         return flagUrl;
     }
@@ -63,19 +71,19 @@ public class Country {
         this.nameTranslations = nameTranslations;
     }
 
-    public String getPopulation() {
+    public long getPopulation() {
         return population;
     }
 
-    public void setPopulation(String population) {
+    public void setPopulation(long population) {
         this.population = population;
     }
 
-    public String getTotalArea() {
+    public double getTotalArea() {
         return totalArea;
     }
 
-    public void setTotalArea(String totalArea) {
+    public void setTotalArea(double totalArea) {
         this.totalArea = totalArea;
     }
 
@@ -85,6 +93,13 @@ public class Country {
 
     public void setAcronym(String acronym) {
         this.acronym = acronym;
+    }
+    
+    @Override
+    public String toString(){
+        return "Country: " + name
+                + " Capital: "+ capital
+                + " Region, " + region;
     }
     
     
